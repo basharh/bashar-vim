@@ -1,4 +1,3 @@
-
 if exists("loaded_bashar")
   finish
 endif

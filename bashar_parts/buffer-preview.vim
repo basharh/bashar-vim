@@ -1,5 +1,3 @@
-
-finish
 if exists("loaded_bashar_buffer_preview")
   finish
 endif
@@ -98,5 +96,3 @@ nnoremap <C-P> :<C-U>call <SID>BufferPreviewWindowAction("toggle")<cr>
 
 " Jumps to NERDTree Window
 nnoremap <leader>wp :call <SID>BufferPreviewWindowAction("moveto")<cr>
-
-

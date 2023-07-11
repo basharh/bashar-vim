@@ -7,5 +7,7 @@ command! -bang -nargs=* GGrep
   \   'git grep --line-number -- '.shellescape(<q-args>), 0,
   \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 
-nnoremap <leader>f :GFiles<CR>
-nnoremap <leader>g :GGrep<CR>
+command! -bang -bar -nargs=? -complete=dir Cd
+  \ call fzf#run(fzf#wrap(
+  \ {'source': 'find '.( empty("<args>") ? ( <bang>0 ? "~" : "." ) : "<args>" ) .' -type d -not -path "*/.*"',
+  \ 'sink': 'e'}))

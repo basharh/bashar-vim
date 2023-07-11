@@ -36,7 +36,7 @@ endfunction
 
 " inside buffer: open FZF for directory
 function! BufferOpenFZF()
-  let l:buffer_git_path = fnamemodify(FugitiveGitDir(), ":h")
+  let l:buffer_git_path = finddir('.git/..', expand('%:p:h').';')
 
   if empty(l:buffer_git_path)
       return
@@ -47,7 +47,8 @@ endfunction
 
 " inside buffer: grep a git directory of the file
 function! BufferOpenGrep()
-  let l:buffer_git_path = fnamemodify(FugitiveGitDir(), ":h")
+  "let l:buffer_git_path = fnamemodify(FugitiveGitDir(), ":h")
+  let l:buffer_git_path = finddir('.git/..', expand('%:p:h').';')
 
   if empty(l:buffer_git_path)
       return

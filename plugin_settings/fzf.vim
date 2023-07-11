@@ -9,5 +9,8 @@ command! -bang -nargs=* GGrep
 
 command! -bang -bar -nargs=? -complete=dir Cd
   \ call fzf#run(fzf#wrap(
-  \ {'source': 'find '.( empty("<args>") ? ( <bang>0 ? "~" : "." ) : "<args>" ) .' -type d -not -path "*/.*"',
+  \ {'source': 'find '.( empty("<args>") ? ( <bang>0 ? "~" : "." ) : "<args>" )
+  \ .' -type d -not -path "*/.*" -not -path "*node_modules*" ',
   \ 'sink': 'e'}))
+
+nnoremap <leader>zd :Cd ~/work<cr>

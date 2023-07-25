@@ -31,7 +31,8 @@ function! NERDTreeOpenGrep()
         return
     endif
 
-    execute "FZF " . l:node.path.str()
+    call fzf#vim#grep2("rg --column --line-number --no-heading --color=always --smart-case",
+      \ "", fzf#vim#with_preview({'dir': l:node.path.str()}))
 endfunction
 
 " inside buffer: open FZF for directory
@@ -54,9 +55,8 @@ function! BufferOpenGrep()
       return
   endif
 
-  let query = input('grep: ')
-
-  call fzf#vim#grep('git grep --line-number -- '.shellescape(query), fzf#vim#with_preview({'dir': l:buffer_git_path}))
+  call fzf#vim#grep2("rg --column --line-number --no-heading --color=always --smart-case", "",
+    \ fzf#vim#with_preview({'dir': l:buffer_git_path}))
 endfunction
 
 " nerdtree mappings are defined in the filetype plugins

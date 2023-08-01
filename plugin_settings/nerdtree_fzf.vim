@@ -47,18 +47,27 @@ function! BufferOpenFZF()
 endfunction
 
 " inside buffer: grep a git directory of the file
-function! BufferOpenGrep()
+function! BufferOpenGrep(visual)
   "let l:buffer_git_path = fnamemodify(FugitiveGitDir(), ":h")
   let l:buffer_git_path = finddir('.git/..', expand('%:p:h').';')
+  let l:search = ""
+
+  if a:visual
+    let temp = @@
+    norm! gvy
+    let l:search = @@
+    let @@ = temp
+  endif
 
   if empty(l:buffer_git_path)
       return
   endif
 
-  call fzf#vim#grep2("rg --column --line-number --no-heading --color=always --smart-case", "",
+  call fzf#vim#grep2("rg --column --line-number --no-heading --color=always --smart-case", l:search,
     \ fzf#vim#with_preview({'dir': l:buffer_git_path}))
 endfunction
 
 " nerdtree mappings are defined in the filetype plugins
 nnoremap <leader>zf :call BufferOpenFZF()<cr>
-nnoremap <leader>zg :call BufferOpenGrep()<cr>
+nnoremap <leader>zg :call BufferOpenGrep(0)<cr>
+vnoremap <leader>zg :call BufferOpenGrep(1)<cr>

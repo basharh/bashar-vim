@@ -9,7 +9,6 @@ let g:asyncomplete_auto_popup = 1
 hi link LspErrorVirtualText CursorLineFold
 let g:lsp_diagnostics_highlights_enabled=0
 
-nnoremap <C-]> :LspDefinition<cr>
 let g:lsp_diagnostics_signs_error = {'text': '✗'}
 let g:lsp_diagnostics_signs_warning = {'text': '‼'}
 let g:lsp_document_code_action_signs_enabled = 0
@@ -85,6 +84,9 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> <leader>lt :vertical LspTypeDefinition<cr>
     nmap <buffer> <leader>lp <plug>(lsp-peek-definition)
     nmap <buffer> <C-p> <plug>(lsp-peek-definition)
+    nmap <buffer> <M-n> <plug>(lsp-next-error)
+    nmap <buffer> <M-p> <plug>(lsp-previous-error)
+    nmap <buffer> <C-]> <plug>(lsp-definition)
 
     let g:lsp_format_sync_timeout = 1000
     autocmd! BufWritePre *.rs,*.go,*.dart call execute('LspDocumentFormatSync')

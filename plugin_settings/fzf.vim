@@ -2,6 +2,10 @@
   "finish
 "endif
 
+let $FZF_DEFAULT_COMMAND = 'rg --files'
+let $BAT_THEME='Sublime Snazzy'
+let $FZF_DEFAULT_OPTS='--exact'
+
 command! -bang -nargs=* GGrep
   \ call fzf#vim#grep(
   \   'git grep --line-number -- '.shellescape(<q-args>), 0,
@@ -22,3 +26,6 @@ command! -bang -bar -nargs=? -complete=dir Cd
   "\ 'sink': 'e'}))
 
 nnoremap <leader>zd :Cd ~/work<cr>
+nnoremap <leader>zf :GFiles<CR>
+nnoremap <leader>zg :GGrep<CR>
+nnoremap <leader>zb :Buffers<CR>

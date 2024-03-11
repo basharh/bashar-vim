@@ -31,7 +31,7 @@ nnoremap <leader>wc :%substitute/\s\+$//ge<cr>:nohlsearch<cr>:write<cr>
 
 nnoremap <leader>q :quit<cr>
 
-nnoremap <leader>l :ls<cr>
+"nnoremap <leader>l :ls<cr>
 
 nnoremap <leader>h :execute "help " . expand("<cword>")<cr>
 

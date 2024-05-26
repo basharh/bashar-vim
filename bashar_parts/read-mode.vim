@@ -1,55 +1,40 @@
-" TODO: Add a marker to the position that will be scrolled up by
-" up and down. Currently, I lose the position that I was reading at
-" when I scroll down the page with 'u' and 'd'
-
-" TODO: Automatically toggle read-mode for read-only files.
-
-finish
 if exists("loaded_bashar_read_mode")
   finish
 endif
-let loaded_bashar_read_mode = 1
+"let loaded_bashar_read_mode = 1
 
 nnoremap <leader>r :call <SID>ToggleReadMode()<cr>
 
 function! s:ToggleReadMode()
 
-  " Used to prevent toggling 'modifiable' for originally
-  " unmodifiable buffers like NERDTree
   if ( !exists("b:originally_modifiable") )
     let b:originally_modifiable = &modifiable
   endif
 
-  if( exists("b:read_mode") && b:read_mode ) " read_mode ON
-    set guicursor&
+  if( exists("b:read_mode") && b:read_mode ) " read_mode currently ON
+    "set guicursor&
+    "set guicursor+=n-v-c:blinkon0
     if ( b:originally_modifiable )
       setlocal modifiable
     endif
     let b:read_mode = 0
     call s:RestorePreReadModeKeys()
-  else " read_mode OFF
-    set
-      \ guicursor=n:blinkwait0-blinkon0-blinkoff0-ver1-hor1-hiddenCursor
-    " Switch buffers to unmodifiable for read_mode=ON.
-    if ( b:originally_modifiable )
-      setlocal nomodifiable
-    endif
-    let b:read_mode = 1
-    call s:MapReadModeKeys()
+    setlocal scrolloff<
+    setlocal scroll=0
+    call s:ShowCursor()
+    return
   endif
-endfunction
 
-" Since guicursor is global, we need to set it everytime we
-" move to a buffer
-autocmd BufEnter * call <SID>SetGuiCursor()
-
-function! s:SetGuiCursor()
-  if ( exists("b:read_mode") && b:read_mode )
-    set
-      \ guicursor=n:blinkwait0-blinkon0-blinkoff0-ver1-hor1-hiddenCursor
-  else
-    set guicursor&
+  " read_mode currently OFF
+  setlocal scrolloff=999
+  setlocal scroll=5
+  "set guicursor=n:blinkwait0-blinkon0-blinkoff0-ver1-hor1-hiddenCursor
+  if ( b:originally_modifiable )
+    setlocal nomodifiable
   endif
+  let b:read_mode = 1
+  call s:MapReadModeKeys()
+  call s:HideCursor()
 endfunction
 
 function! s:MapReadModeKeys()
@@ -88,3 +73,25 @@ function! s:RestorePreReadModeKeys()
     execute "nmap <buffer> u " . b:save_u_map
   endif
 endfunction
+
+function s:HideCursor()
+  set guicursor=n:blinkwait0-blinkon0-blinkoff0-ver1-hor1-hiddenCursor
+endfunction
+
+function s:ShowCursor()
+  set guicursor&
+  set guicursor+=n-v-c:blinkon0
+endfunction
+
+function s:SetCursor()
+  if ( b:read_mode )
+    call s:HideCursor()
+  else
+    call s:ShowCursor()
+  endif
+endfunction
+
+augroup bashar_read_mode
+  autocmd!
+  autocmd BufEnter * call s:SetCursor()
+augroup END

@@ -84,6 +84,10 @@ function s:ShowCursor()
 endfunction
 
 function s:SetCursor()
+  if ( !exists("b:read_mode") )
+    let b:read_mode = 0
+  end
+
   if ( b:read_mode )
     call s:HideCursor()
   else

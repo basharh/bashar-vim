@@ -6,6 +6,8 @@ let loaded_bashar_quickfix_shorts = 1
 " Quickfix mappings
 nnoremap <M-1> :cfirst<cr>zz
 nnoremap <M-f> :cnext<cr>zz
+nnoremap <M-b> :cprevious<cr>
+nnoremap <M-m> :silent make \| redraw<CR>
 
 " Quickfix toggle
 nnoremap <M-q> :call <SID>QuickfixToggle()<cr>

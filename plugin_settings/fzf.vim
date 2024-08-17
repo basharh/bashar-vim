@@ -3,6 +3,7 @@
 "endif
 
 let $FZF_DEFAULT_COMMAND = 'rg --files'
+"let $FZF_DEFAULT_COMMAND = 'fd --type f'
 let $BAT_THEME='Sublime Snazzy'
 let $FZF_DEFAULT_OPTS='--exact'
 

@@ -3,19 +3,22 @@ if !get(g:, 'loaded_ale', 0)
 endif
 
 let g:ale_linters = {'javascript': ['eslint'],
+      \ 'typescript': ['eslint'],
+      \ 'typescriptreact': ['eslint'],
       \ 'python': ['pyls', 'pylint']}
-let g:ale_fixers = {'javascript': ['eslint'],
+let g:ale_fixers = {'javascript': ['eslint', 'prettier'],
       \ 'java': ['google_java_format'],
       \ 'javascriptreact': ['eslint', 'prettier'],
-      \ 'dart': ['dart-format'],
       \ 'css': ['prettier', 'eslint'],
-      \ 'json': ['prettier'],
+      \ 'jsonc': ['prettier'],
       \ 'graphql': ['prettier'],
       \ 'prisma': ['prettier'],
-      \ 'typescript': ['eslint', 'prettier'],
-      \ 'typescriptreact': ['eslint', 'prettier'],
+      \ 'typescript': ['prettier'],
+      \ 'typescriptreact': ['prettier'],
       \ 'python': ['black'],
+      \ 'terraform': ['terraform'],
       \ 'json': ['prettier']}
+" \ 'dart': ['dart-format'],
 
 let g:ale_sign_column_always=1
 let g:ale_fix_on_save=1

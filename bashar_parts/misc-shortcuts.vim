@@ -39,3 +39,5 @@ nnoremap <leader>h :execute "help " . expand("<cword>")<cr>
 vnoremap <leader>" <esc>`>a"<esc>`<lt>i"<esc>
 
 nnoremap <M-e> :e!<cr>
+
+nnoremap <M-x> :source %<cr>

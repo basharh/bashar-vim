@@ -1,7 +1,7 @@
 if exists("loaded_bashar_read_mode")
   finish
 endif
-"let loaded_bashar_read_mode = 1
+let loaded_bashar_read_mode = 1
 
 nnoremap <leader>r :call <SID>ToggleReadMode()<cr>
 
@@ -19,15 +19,15 @@ function! s:ToggleReadMode()
     endif
     let b:read_mode = 0
     call s:RestorePreReadModeKeys()
-    setlocal scrolloff<
+    "setlocal scrolloff<
     setlocal scroll=0
     call s:ShowCursor()
     return
   endif
 
   " read_mode currently OFF
-  setlocal scrolloff=999
-  setlocal scroll=5
+  "setlocal scrolloff=999
+  setlocal scroll=10
   "set guicursor=n:blinkwait0-blinkon0-blinkoff0-ver1-hor1-hiddenCursor
   if ( b:originally_modifiable )
     setlocal nomodifiable
